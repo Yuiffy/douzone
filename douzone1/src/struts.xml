@@ -46,7 +46,24 @@
 	</package>
 	<package name="s2ajax" namespace="/ajax" extends="json-default">
 		<action name="dreg" class="action.Dregister">
-			<result type="json">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+		</action>
+		<action name="dlogi" class="action.Dregister" method="Login">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+			<result name="error" type="json">
 				<param name="includeProperties">
 					dataMap.*
 				</param>

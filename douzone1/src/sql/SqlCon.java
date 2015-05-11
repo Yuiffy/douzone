@@ -2,8 +2,9 @@ package sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 import com.sina.sae.util.SaeUserInfo;
 
 import config.MyConfig;
@@ -12,7 +13,8 @@ import config.MyConfig;
  * 构造参数为0为读，为其他为写
  */
 public class SqlCon {
-	private Boolean online = (Boolean.parseBoolean(MyConfig.getValue("isOnline")));// /线上线下这个不同
+	private Boolean online = (Boolean.parseBoolean(MyConfig
+			.getValue("isOnline")));// /线上线下这个不同
 
 	final static private String driver = "com.mysql.jdbc.Driver";
 	final static private int WAIT = 10;
@@ -27,7 +29,7 @@ public class SqlCon {
 
 	public SqlCon() {
 		if (!isOnline()) {
-			url = "jdbc:mysql://localhost:3306/bookdb?characterEncoding=utf-8";
+			url = "jdbc:mysql://localhost:3306/zonedb?characterEncoding=utf-8";
 			user = "root";
 			password = PASSWORD;
 		}
@@ -45,7 +47,7 @@ public class SqlCon {
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			System.out.println("SqlCon连接服务器错啦~(online="+online+")");
+			System.out.println("SqlCon连接服务器错啦~(online=" + online + ")");
 		}
 		System.out.println("SqlCon Over!");
 	}
@@ -78,4 +80,19 @@ public class SqlCon {
 		return this.online;
 	}
 
+	public static boolean isHave(String s) {
+		SqlCon sqlC = new SqlCon();
+		Connection conn = sqlC.getConn();
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(s);
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("错误：" + s);
+			// e.printStackTrace();
+		}
+		return false;
+	}
 }

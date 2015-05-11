@@ -20,6 +20,7 @@
 }
 </style>
 <script src="js/jquery.js"></script>
+<script src="js/validate.js"></script>
 <script>
 	function validate_email(field, alerttxt) {
 		with (field) {
@@ -43,22 +44,35 @@
 			}
 		}
 	}
+	function validate_sql(field, alerttxt) {
+		with (field) {
+			var a = new Array(";", "'", "\"");
+			for (i in a) {
+				if (value.indexOf(a[i]) != -1) {
+					alert(alerttxt);
+					return false;
+				}
+			}
+			return true;
+		}
+	}
 	function validate_form(thisform) {
 		with (thisform) {
 			$('#submitbtn').attr('disabled', "true");
-			if (validate_email(email, "email格式不合法，请输入类似aaa@bbb.ccc这样的email!") == false) {
-				email.focus();
+			if (!validate_email_password(email, password)) {
 				$('#submitbtn').removeAttr("disabled");
 				return false;
-			} else if (validate_required(password, "请输入密码！") == false) {
-				password.focus();
+			} else if (password.value != password2.value) {
+				alert("两次密码不一样啊，快好好输一输");
+				password2.focus();
 				$('#submitbtn').removeAttr("disabled");
 				return false;
 			} else {
 				var url = "ajax/dreg";
 				var params = {
-					operand1 : email.value,
-					operand2 : password.value
+					email : email.value,
+					uname : uname.value,
+					password : password.value
 				};
 				jQuery.post(url, params, ajaxBack);
 			}
@@ -91,13 +105,22 @@
 <body>
 	<div id="center">
 		<h2>注册逗Zone</h2>
-		<form id="forms" name="zhuce" action="mystruts/sum"
+		<form id="forms" name="zhuce" action="dregister.jsp"
 			onsubmit="return validate_form(this);" method="post">
-			邮箱：<input type="text" name="email" /> <br> 密码：<input
-				type="password" name="password" /> <br> <select name="sex">
+			邮箱：<input type="text" name="email" />
+			<br>
+			昵称：<input type="text" name="uname" />
+			<br>
+			密码：<input type="password" name="password" />
+			<br>
+			再次输入密码：<input type="password" name="password2" />
+			<br>
+			<select name="sex">
 				<option value="male">男</option>
 				<option value="female">女</option>
-			</select> <br> <input id="submitbtn" type="submit" value="注册" />
+			</select>
+			<br>
+			<input id="submitbtn" type="submit" value="注册" />
 		</form>
 		<div id="writeb"></div>
 		<input id="btn" type="button" value="返回登陆界面"

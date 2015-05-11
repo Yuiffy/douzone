@@ -17,7 +17,7 @@ public class Query {
 			Statement statement = conn.createStatement();
 			System.out.println("conn.createStatement() OVER");
 			String ss = String.format(
-					"insert into book values(%d,\'%s\',%d,\'%s\',\'%s\',%f)",
+					"insert into book (email,uname,password) values(%d,\'%s\',%d,\'%s\',\'%s\',%f)",
 					c1, c2, c3, c4, c5.toString(), c6);
 			System.out.println(ss);
 			statement.executeUpdate(ss);
@@ -97,7 +97,8 @@ public class Query {
 		Connection conn = sqlC.getConn();
 		try {
 			Statement statement = conn.createStatement();
-			statement.executeUpdate("create database bookdb default character set utf8");
+			statement
+					.executeUpdate("create database bookdb default character set utf8");
 			statement.executeUpdate("use bookdb");
 			statement
 					.executeUpdate("CREATE TABLE IF NOT EXISTS `author` (  `AuthorID` int(11) NOT NULL DEFAULT '0',  `Name` varchar(99) CHARACTER SET utf8 DEFAULT NULL,  `Age` int(11) DEFAULT NULL,  `Country` varchar(99) CHARACTER SET utf8 DEFAULT NULL,  PRIMARY KEY (`AuthorID`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
@@ -111,4 +112,22 @@ public class Query {
 		return true;
 	}
 
+	static public boolean Update(String ss) {
+		try {
+			SqlCon sqlC = new SqlCon();
+			sqlC.setWrite();
+			System.out.println("New SqlCon(1) over");
+			Connection conn = sqlC.getConn();
+			System.out.println("getConn Over");
+			Statement statement = conn.createStatement();
+			System.out.println("conn.createStatement() OVER");
+			System.out.println(ss);
+			statement.executeUpdate(ss);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Query.Update Error");
+			return false;
+		}
+		return true;
+	}
 }
