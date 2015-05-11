@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE struts PUBLIC
+      "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+      "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="struts2" namespace="/mystruts" extends="struts-default">
+		<default-action-ref name="sum" />
+		<action name="sum" class="action.FirstAction">
+			<result name="positive">/positive.jsp</result>
+			<result name="negative">/negative.jsp</result>
+			<result name="illegal">/illegal.jsp</result>
+		</action>
+
+		<action name="find" class="action.Find">
+			<result name="success">/find.jsp</result>
+		</action>
+
+		<action name="inform" class="action.Inform">
+			<result name="success">/inform.jsp</result>
+		</action>
+
+		<action name="newbook" class="action.NewBook">
+			<result name="success">/newbook.jsp</result>
+			<result name="fail">/newbook.jsp</result>
+		</action>
+		<action name="delbook" class="action.DelBook">
+			<result type="chain" name="success">find</result>
+			<result type="chain" name="fail">find</result>
+		</action>
+		<action name="upbook" class="action.UpBook">
+			<result type="chain" name="success">inform</result>
+			<result type="chain" name="fail">inform</result>
+		</action>
+		<action name="newauthor" class="action.NewAuthor">
+			<result name="success">/newauthor.jsp</result>
+			<result name="fail">/newauthor.jsp</result>
+		</action>
+		<action name="initdb" class="action.InitDB">
+			<result name="success">/negative.jsp</result>
+			<result name="fail">/negative.jsp</result>
+		</action>
+		<action name="writebookbyweibo" class="action.WriteBookByWeibo">
+			<result name="success">/newauthor.jsp</result>
+			<result name="fail">/newauthor.jsp</result>
+		</action>
+	</package>
+	<package name="s2ajax" namespace="/ajax" extends="json-default">
+		<action name="dreg" class="action.Dregister">
+			<result type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+		</action>
+	</package>
+	<package name="home" namespace="/" extends="struts-default">
+		<default-action-ref name="index" />
+		<action name="index">
+			<result name="success">/index.jsp</result>
+		</action>
+	</package>
+
+
+</struts>
