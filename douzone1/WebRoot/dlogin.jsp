@@ -6,8 +6,11 @@
 <html>
 <head>
 <title>登陆逗zone</title>
+<link rel="stylesheet" href="css/pure-min.css">
+<link rel="stylesheet" href="css/dzone.css">
 <style type="text/css">
 #center {
+	text-align: center;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -19,7 +22,8 @@
 }
 </style>
 <script src="js/jquery.js"></script>
-<script src="js/validate.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/dz.js"></script>
 <script>
 	function validate_form(thisform) {
 		with (thisform) {
@@ -28,53 +32,59 @@
 				$('#submitbtn').removeAttr("disabled");
 				return false;
 			} else {
+				password.value = MD5(password.value);
 				var url = "ajax/dlogi";
 				var params = {
 					email : email.value,
 					password : password.value
 				};
 				jQuery.post(url, params, ajaxBack);
+				$('#btn').attr('onClick',"window.location.href='dzone.jsp'");
+				$('#btn').html("直接进入");
 			}
 			return false;
 		}
-	}
-	function countd(t){
-		$('#countdown').html("等待"+t+"秒后跳转到登陆后页面");
-		t--;
-		setTimeout("countd("+t+")",1000);
 	}
 	function ajaxBack(data) {
 		console.log(data);
 		$('#submitbtn').removeAttr("disabled");
 		with (data.dataMap) {
-			if (ok){
+			if (ok) {
 				$('#forms').hide();
-				countd(5);
+				console.log(data.dataMap);
+				setCookie("email", email);
+				setCookie("password", password);
+				countDownTo(3, "登陆后页面", "dzone.jsp", $('#countdown'));
 			}
-			$('#writeb').html(msg+"<br>");
+			$('#writeb').html(msg + "<br>");
+		}
+	}
+	function on_load() {
+		if (get_login_status()) {
+			$('#forms').html("欢迎回来！" + EMAIL);
+			countDownTo(3, "登陆后页面", "dzone.jsp", $('#countdown'));
 		}
 	}
 </script>
 </head>
 
-<body>
+<body onload="on_load()">
 	<div id="center">
-		<center>
-			<h2>登陆逗Zone</h2>
-			<form id="forms" name="zhuce" action="dlogin.jsp"
-				onsubmit="return validate_form(this);" method="post">
-				邮箱：<input type="text" name="email" />
-				<br>
-				密码：<input type="password" name="password" />
-				<br>
-				<input id="submitbtn" type="submit" value="登陆" />
-			</form>
-			<div id="writeb"></div>
-			<div id="countdown"></div>
+		<h2>登陆逗Zone</h2>
+		<form id="forms" name="zhuce" action="dlogin.jsp"
+			onsubmit="return validate_form(this);" method="post">
+			邮箱：<input type="text" name="email" />
 			<br>
-			<input id="btn" type="button" value="注册新账号"
-				onClick="window.location.href='dregister.jsp'">
-		</center>
+			密码：<input type="password" name="password" />
+			<br>
+			<input class="pure-button primary-button" id="submitbtn"
+				type="submit" value="登陆" />
+		</form>
+		<div id="writeb"></div>
+		<div id="countdown"></div>
+		<br>
+		<button class="pure-button primary-button" id="btn"
+			onClick="window.location.href='dregister.jsp'">注册新账号</button>
 	</div>
 </body>
 </html>

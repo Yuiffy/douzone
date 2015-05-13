@@ -69,6 +69,20 @@
 				</param>
 			</result>
 		</action>
+		<action name="dadd" class="action.Dregister" method="AddFriend">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+		</action>
+		<action name="getfriend" class="action.Dregister" method="GetFriend">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					dataMap.*
+				</param>
+			</result>
+		</action>
 	</package>
 	<package name="home" namespace="/" extends="struts-default">
 		<default-action-ref name="index" />

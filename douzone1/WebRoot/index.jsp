@@ -8,16 +8,33 @@
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html xmlns:wb="http://open.weibo.com/wb">
 <head>
 <meta property="qc:admins" content="1560164061661631611006375" />
 <meta property="wb:webmaster" content="01c682aa58ed0077" />
-<html xmlns:wb="http://open.weibo.com/wb">
+
+<link rel="stylesheet" href="css/pure-min.css">
+<link rel="stylesheet" href="css/dzone.css">
 <style>
 .center {
 	margin: auto;
 	width: 70%;
 	background-color: auto;
+}
+
+.primary-button,.exit-button {
+	color: white;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	margin: 0.5em 0;
+}
+
+.exit-button {
+	background: #ee2222;
+}
+
+.primary-button {
+	background: #1b98f8;
 }
 </style>
 <script
@@ -195,14 +212,16 @@
 			<input id="btn3" type=button value="把我加到图书数据库里" onclick="WriteBook()">
 			<input id="btn4" type="button" value="进入图书管理系统"
 				onClick="window.location.href='index2.jsp'">
+			<button class="pure-button primary-button"
+				onClick="window.location.href='dlogin.jsp'">进入逗zone</button>
 		</div>
 		<div id="writeb"></div>
 		<!-- 	<h1>你可以来一波微博登录</h1> -->
 		<wb:comments url="http://yuiffy.sinaapp.com" border="y" brandline="y"
 			width="auto" appkey="2836403254" ralateuid="1434371712">评论箱</wb:comments>
-		<br> <input type="button"
-			style="font-size:40px;font-weight: bold" value="进入图书管理系统"
-			onClick="window.location.href='index2.jsp'">
+		<br>
+		<input type="button" style="font-size:40px;font-weight: bold"
+			value="进入图书管理系统" onClick="window.location.href='index2.jsp'">
 
 
 		<!-- 	<br> 你的IP地址： -->

@@ -6,6 +6,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Query {
+
+	public static boolean Q(String s) {
+		SqlCon sqlC = new SqlCon();
+		sqlC.setWrite();
+		Connection conn = sqlC.getConn();
+		try {
+			Statement statement = conn.createStatement();
+			System.out.println(s);
+			statement.executeUpdate(s);
+			statement.close();
+			conn.close();
+			sqlC.close();
+			return true;
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			System.out.println("ERROR_Query_Q:" + s);
+			return false;
+		}
+	}
+
 	static public boolean Book(int c1, String c2, int c3, String c4, Date c5,
 			double c6) {
 		try {
@@ -16,9 +36,9 @@ public class Query {
 			System.out.println("getConn Over");
 			Statement statement = conn.createStatement();
 			System.out.println("conn.createStatement() OVER");
-			String ss = String.format(
-					"insert into book (email,uname,password) values(%d,\'%s\',%d,\'%s\',\'%s\',%f)",
-					c1, c2, c3, c4, c5.toString(), c6);
+			String ss = String
+					.format("insert into book (email,uname,password) values(%d,\'%s\',%d,\'%s\',\'%s\',%f)",
+							c1, c2, c3, c4, c5.toString(), c6);
 			System.out.println(ss);
 			statement.executeUpdate(ss);
 		} catch (SQLException e) {
@@ -107,25 +127,6 @@ public class Query {
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			System.out.println("InitDB Error");
-			return false;
-		}
-		return true;
-	}
-
-	static public boolean Update(String ss) {
-		try {
-			SqlCon sqlC = new SqlCon();
-			sqlC.setWrite();
-			System.out.println("New SqlCon(1) over");
-			Connection conn = sqlC.getConn();
-			System.out.println("getConn Over");
-			Statement statement = conn.createStatement();
-			System.out.println("conn.createStatement() OVER");
-			System.out.println(ss);
-			statement.executeUpdate(ss);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Query.Update Error");
 			return false;
 		}
 		return true;

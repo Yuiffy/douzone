@@ -52,6 +52,16 @@ public class SqlCon {
 		System.out.println("SqlCon Over!");
 	}
 
+	public boolean close(){
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * @param x
 	 *            为0为读，其他为写
@@ -87,6 +97,9 @@ public class SqlCon {
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(s);
 			if (rs.next()) {
+				rs.close();
+				statement.close();
+				conn.close();
 				return true;
 			}
 		} catch (SQLException e) {
