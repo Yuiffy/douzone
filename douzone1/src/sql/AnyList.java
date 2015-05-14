@@ -68,4 +68,46 @@ public class AnyList {
 			// e.printStackTrace();
 		}
 	}
+	/**
+	 * @param s
+	 * @param dnum
+	 * 用dnum(数组，元素可以为0)来表示哪些列需要UnDiao解码
+	 */
+	public AnyList(String s,List<Integer> dnum) {
+		SqlCon sqlC = new SqlCon();
+		Connection conn = sqlC.getConn();
+		int si=dnum.size();
+		int a[]=new int[100];
+		for(int i=0;i<si;i++){
+			a[dnum.get(i)]=1;
+		}
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(s);
+			// /"select * from book where Author="+ authorName
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			List<String> tlist = new ArrayList<String>();
+			for (int i = 0; i < columnCount; i++) {
+				String t = rsmd.getColumnName(i + 1);
+				tlist.add(t);
+			}
+			this.list2.add(tlist);
+			while (rs.next()) {
+				tlist = new ArrayList<String>();
+				for (int i = 0; i < columnCount; i++) {
+					String t = rs.getString(i + 1);
+					if(a[i]==1)t=func.Dzone.UnDiao(t);
+					tlist.add(t);
+				}
+				this.list2.add(tlist);
+			}
+			rs.close();
+			statement.close();
+			conn.close();
+			sqlC.close();
+		} catch (SQLException e) {
+			// e.printStackTrace();
+		}
+	}
 }

@@ -91,6 +91,7 @@ function countDownTo(t, msg, aim, element) {
 	element.html("等待" + t + "秒后跳转到" + msg);
 	if (t <= 0) {
 		location.href = aim;
+		return;
 	}
 	setTimeout(function() {
 		countDownTo(t - 1, msg, aim, element);
@@ -119,8 +120,14 @@ function check_login() {
 function exit_login() {
 	delCookie("email");
 	delCookie("password");
-	STATUS=-1;
-	EMAIL="";
-	PASSWORD="";
+	STATUS = -1;
+	EMAIL = "";
+	PASSWORD = "";
 	location.href = "dlogin.jsp";
+}
+function fbutton(sec) {
+	$('.pure-button').attr('disabled', "true");
+	setTimeout(function() {
+		$('.pure-button').removeAttr("disabled");
+	}, 1000*sec);
 }

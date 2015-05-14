@@ -10,15 +10,18 @@
 <link rel="stylesheet" href="css/dzone.css">
 <style type="text/css">
 #center {
-	text-align: center;
+	background: #dddddd;
+	padding: 0.3em 1em;
+	border-radius: 50px;
+	
+		text-align: center;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -100px;
+	margin-top: -150px;
 	margin-left: -200px;
 	width: 400px;
-	height: 200px;
-	background: #eeeeee
+	height: 300px;
 }
 </style>
 <script src="js/jquery.js"></script>

@@ -1,7 +1,7 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="action.FirstAction" import="sql.AuthorList"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML">
 
 <html>
 <head>
@@ -10,15 +10,26 @@
 <link rel="stylesheet" href="css/dzone.css">
 <style type="text/css">
 #center {
-	text-align: center;
+
+}
+
+aside {
+	background: #dddddd;
+	padding: 0.3em 1em;
+	border-radius: 50px;
+	
+		text-align: center;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -100px;
+	margin-top: -200px;
 	margin-left: -200px;
 	width: 400px;
-	height: 200px;
-	background: #eeeeee
+	height: 400px;
+}
+
+aside a,aside a:visited {
+	color: rgb(169, 226, 255);
 }
 </style>
 <script src="js/jquery.js"></script>
@@ -67,30 +78,32 @@
 </head>
 
 <body>
-	<div id="center">
-		<h2>注册逗Zone</h2>
-		<form id="forms" name="zhuce" action="dregister.jsp"
-			onsubmit="return validate_form(this);" method="post">
-			邮箱：<input type="text" name="email" />
-			<br>
-			密码：<input type="password" name="password" />
-			<br>
-			再次输入密码：<input type="password" name="password2" />
-			<br>
-			昵称：<input type="text" name="uname" />
-			<br>
-			<select name="sex">
-				<option value="male">男</option>
-				<option value="female">女</option>
-			</select>
-			<br>
-			<input id="submitbtn" type="submit" value="注册"
-				class="pure-button primary-button" />
-		</form>
-		<div id="writeb"></div>
-		<input id="btn" type="button" value="返回登陆界面"
-			class="pure-button primary-button"
-			onClick="window.location.href='dlogin.jsp'">
-	</div>
+	<aside>
+		<div id="center">
+			<h2>注册逗Zone</h2>
+			<form id="forms" name="zhuce" action="dregister.jsp"
+				onsubmit="return validate_form(this);" method="post">
+				邮箱：<input type="text" name="email" />
+				<br>
+				密码：<input type="password" name="password" />
+				<br>
+				再次输入密码：<input type="password" name="password2" />
+				<br>
+				昵称：<input type="text" name="uname" />
+				<br>
+				<select name="sex">
+					<option value="male">男</option>
+					<option value="female">女</option>
+				</select>
+				<br>
+				<input id="submitbtn" type="submit" value="注册"
+					class="pure-button primary-button" />
+			</form>
+			<div id="writeb"></div>
+			<input id="btn" type="button" value="返回登陆界面"
+				class="pure-button primary-button"
+				onClick="window.location.href='dlogin.jsp'">
+		</div>
+	</aside>
 </body>
 </html>

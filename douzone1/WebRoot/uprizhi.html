@@ -1,0 +1,21 @@
+
+<form class="friend-content" action="dlogin.jsp"
+	onsubmit="return update_rizhi(this);" method="post">
+	<div class="friend-content-header pure-g">
+		<div class="pure-u-1-2">
+			标题：
+			<h1 class="friend-content-title">
+				<input type="text" id="rizhiTitle" value="" />
+			</h1>
+			<p id="rizhi-info" class="friend-content-subtitle">（新日志）</p>
+		</div>
+
+		<div class="pure-u-1-2 friend-content-controls">
+			<button id="update-btn" type="submit"
+				class="pure-button secondary-button">发表</button>
+		</div>
+	</div>
+	<div class="friend-content-body">
+		<textarea id="rizhi" class="rizhi" rows="20"></textarea>
+	</div>
+</form>

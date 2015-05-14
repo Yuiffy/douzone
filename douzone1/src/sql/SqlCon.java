@@ -49,7 +49,6 @@ public class SqlCon {
 			e1.printStackTrace();
 			System.out.println("SqlCon连接服务器错啦~(online=" + online + ")");
 		}
-		System.out.println("SqlCon Over!");
 	}
 
 	public boolean close(){
